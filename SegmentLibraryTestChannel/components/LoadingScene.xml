@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+
+<component name="LoadingScene" extends="Scene">
+
+<script type="text/brightscript" >
+<![CDATA[
+  function init() as void
+      m.top.backgroundUri = "pkg:/images/splash_$$RES$$.jpg"
+      m.grp = m.top.FindNode("grp")
+      m.lbl = m.top.FindNode("lbl")
+      m.lib = m.top.FindNode("SegmentComponentLibrary")
+      m.lib.observeField("loadStatus", "onLoadStatusChanged")
+
+      m.messageButtons = m.top.FindNode("messageButtons")
+  end function
+
+  sub onLoadStatusChanged()
+      if (m.lib.loadStatus = "ready")
+    	  m.segmentLib = CreateObject("roSGNode", "SegmentComponentLib:SegmentLibrary")
+        m.lbl.text = "Segment Component Library had been successfully loaded"
+        ?m.lbl.text
+        m.global.Segment_analytics.message = {"event": "Segment Component Library had been successfully loaded"}
+        m.messageButtons.visible = true
+        m.messageButtons.setFocus(true)
+        m.messageButtons.observeField("itemSelected", "onItemSelected")
+      endif
+  end sub
+
+  sub onItemSelected(event)
+    itemSelected = event.getData()
+    item = m.messageButtons.content.getChild(itemSelected)
+    m.global.Segment_analytics.message = {"event": item.id}
+    m.lbl.text = "Message " + chr(34) + item.id + chr(34) + " was sent"
+    ?m.global.Segment_analytics.message
+  end sub
+]]>
+</script>
+
+<children>
+  <ComponentLibrary id="SegmentComponentLibrary" uri="https://github.com/drodine/segment/raw/master/SegmentLib/out/SegmentLib-latest.pkg" />
+
+  <Group id="grp">
+    <Label id="lbl" text="Please Wait..." color="0x000000" translation="[0, 540]" width="1920" horizAlign="center" />
+    <LabelList id="messageButtons" translation="[660, 600]" itemSize="[600, 72]" visible="false" >
+      <ContentNode role="content" >
+        <ContentNode id="Button 1 pressed" title="Send message: Button 1 pressed" />
+        <ContentNode id="Button 2 pressed" title="Send message: Button 2 pressed" />
+        <ContentNode id="Button 3 pressed" title="Send message: Button 3 pressed" />
+      </ContentNode>
+    </LabelList>
+  </Group>
+</children>
+</component>
