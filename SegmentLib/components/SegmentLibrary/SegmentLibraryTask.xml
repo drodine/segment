@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="SegmentLibraryTask" extends="Task" >
+  <interface>
+    <field id="message" type="assocarray" />
+    <field id="response" type="assocarray" alwaysNotify="true" />
+  </interface>
+
+  <script type = "text/brightscript" >
+    <![CDATA[
+ 
+    sub init()
+      m.top.id = "SegmentLibraryTask"
+      m.top.functionName = "track"
+    end sub
+
+    sub done()
+      m.top.control = "DONE"
+    end sub
+
+
+    ]]>
+  </script>
+  <script type="text/brightscript" uri="SegmentLibraryTask.brs" />
+</component>
