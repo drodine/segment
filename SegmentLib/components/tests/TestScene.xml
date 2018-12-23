@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<component name="TestScene" extends="Scene">
+
+  <script type="text/brightscript" >
+  <![CDATA[
+    function init() as void
+      m.top.backgroundColor = "0xffffff"
+      m.top.backgroundUri = ""
+    end function
+  ]]>
+  </script>
+
+  <children>
+    <Label id="lbl" text="Segment Library Test Execution" color="0x000000" translation="[0, 540]" width="1920" horizAlign="center" />
+  </children>
+</component>

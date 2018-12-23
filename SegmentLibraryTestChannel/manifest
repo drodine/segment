@@ -7,5 +7,8 @@ splash_screen_sd=pkg:/images/splash_sd.jpg
 major_version=1
 minor_version=0
 build_version=0001
+
+segment_library_write_key=VG5wNEuQapY4XMa8cSQXJmIfeJgLFPDo
+
 ui_resolutions=fhd
 uri_resolution_autosub=$$RES$$,SD,HD,FHD

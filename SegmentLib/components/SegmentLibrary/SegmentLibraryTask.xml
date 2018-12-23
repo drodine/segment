@@ -11,6 +11,7 @@
     sub init()
       m.top.id = "SegmentLibraryTask"
       m.top.functionName = "track"
+      m.writeKey = createObject("roAPPInfo").GetValue("segment_library_write_key")
     end sub
 
     sub done()

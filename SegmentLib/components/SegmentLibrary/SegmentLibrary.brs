@@ -1,4 +1,5 @@
 Sub Init()
+  m.top.id = "SegmentLibrary"
   if CreateObject("roDeviceInfo").IsRIDADisabled()
     m.userId = CreateObject("roDeviceInfo").GetRandomUUID()
   else

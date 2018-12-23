@@ -1,5 +1,5 @@
 function segmentConfig()
-  return  { 
+  return  {
             endpoint: "https://api.segment.io/v1/batch",
             userAgentHeader: "analytics-roku/0.0.1",
             timeout: 60000
@@ -41,7 +41,7 @@ Function CreateURLTransferObject()
   obj.SetPort(CreateObject("roMessagePort"))
   obj.SetUrl(segmentConfig().endpoint)
   ba = CreateObject("roByteArray")
-  ba.FromAsciiString("VG5wNEuQapY4XMa8cSQXJmIfeJgLFPDo:")
+  ba.FromAsciiString(m.writeKey + ":")
   obj.AddHeader("Authorization", "Basic " + ba.ToBase64String())
   obj.AddHeader("User-Agent", segmentConfig().userAgentHeader)
   obj.AddHeader("Content-Type", "application/json")
