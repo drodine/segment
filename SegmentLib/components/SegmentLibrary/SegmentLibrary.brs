@@ -19,15 +19,23 @@ Sub Init()
                                 "name": "analytics-roku"
                             }
                         },
-                        "messageId": generateMessageId(),
                         "type": "track",
                         "event": "Application Start"
                       }
-  m.batch = [m.defaultMessage]
+  m.batch = [getMessageBody(m.defaultMessage)]
   ?"SegmentLibrary Init"
   m.global.addField("Segment_analytics","node",false)
   m.global.Segment_analytics = m.top
 End Sub
+
+
+function getMessageBody(message)
+  messageBody = {}
+  messageBody.Append(m.defaultMessage)
+  messageBody.Append(message)
+  messageBody.messageId = generateMessageId()
+  return messageBody
+end Function
 
 
 function generateMessageId()
@@ -38,10 +46,7 @@ end Function
 
 sub onMessageChange()
   if m.top.message <> invalid
-    message = m.defaultMessage
-    message.messageId = generateMessageId()
-    message.append(m.top.message)
-    m.batch.push(message)
+    m.batch.push(getMessageBody(m.top.message))
     runTask({"batch": m.batch}, "onMessageResponse")
     m.batch = []
   end if

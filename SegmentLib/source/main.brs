@@ -1,4 +1,4 @@
- sub main(args)
+sub main(args)
   'if channel is in dev mode and in deep linking parameters was specified RunTests parameter as true
   'then we run test cases, that is specified in folder pkg:/component/tests
   if createObject("roAPPInfo").IsDev() and args.RunTests = "true" and TF_Utils__IsFunction(TestRunner)

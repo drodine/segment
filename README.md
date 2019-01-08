@@ -7,7 +7,8 @@ Segment Library allows easily send messages to segment.io
 ## Overwview
 Repository content:
 * `SegmentLib` - library folder
-* `SegmentLibraryTestChannel` - sample RSG application to show the proper library integration way
+* `SegmentLibraryPackageIntegrationSampleChannel` - sample RSG application to show the proper library integration way using `ComponentLibrary`
+* `SegmentLibrarySampleChannel` - sample RSG application to show the proper library integration way
 
 ## Library Integration
 Steps to integrate Segment Library:

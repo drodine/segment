@@ -2,6 +2,6 @@ title=SegmentComponentLib
 major_version=1
 minor_version=0
 build_version=0001
-#sg_component_libs_provided=SegmentComponentLib
 hidden=1
+
 segment_library_write_key=VG5wNEuQapY4XMa8cSQXJmIfeJgLFPDo
