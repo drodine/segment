@@ -12,6 +12,11 @@ Function TestSuite__Lib__RSGTestSuite1() as Object
 End Function
 
 
+Function getTestSuitesAA()
+    return { "TestSuite__Lib__RSGTestSuite1": TestSuite__Lib__RSGTestSuite1 }
+End Function
+
+
 function TestCase__Init() as Object
   globalAA = getGlobalAA()
   

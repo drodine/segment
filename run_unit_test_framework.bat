@@ -61,8 +61,13 @@ copy /Y /B .\sample_channel_manifest .\%BUILD_3_NAME%\manifest
 powershell.exe -nologo -noprofile -command "Compress-Archive -Path .\%BUILD_3_NAME%\* -DestinationPath .\%BUILD_3_NAME%\%BUILD_3_NAME%.zip"
 
 ) else if %selection% == 5 (
+goto :telnet
+)
+
+
+:telnet
 
 set /p roku_ip="Enter Roku box IP address: "
 telnet %roku_ip% 8085
+goto :EOF
 
-)

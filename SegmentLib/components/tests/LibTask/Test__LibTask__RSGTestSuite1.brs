@@ -12,6 +12,11 @@ Function TestSuite__LibTask__RSGTestSuite1() as Object
 End Function
 
 
+Function getTestSuitesAA()
+    return { "TestSuite__LibTask__RSGTestSuite1": TestSuite__LibTask__RSGTestSuite1 }
+End Function
+
+
 function TestCase__Send_Message() as Object
   globalAA = getGlobalAA()
   initialResponseData = globalAA.top.response

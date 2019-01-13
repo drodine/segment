@@ -6,7 +6,7 @@
 '* Build Date: 03/06/2018
 '*
 '* Public Documentation is avaliable on GitHub:
-'* 		https://github.com/rokudev/unit-testing-framework
+'*    https://github.com/rokudev/unit-testing-framework
 '*
 '*****************************************************************
 '*****************************************************************
@@ -150,7 +150,7 @@ End Sub
 '----------------------------------------------------------------
 function BTS__Skip(message = "" as String) as String
     ' add prefix so we know that this test is skipped, but not failed
-	return m.SKIP_TEST_MESSAGE_PREFIX + message
+  return m.SKIP_TEST_MESSAGE_PREFIX + message
 end function
 
 '----------------------------------------------------------------
@@ -627,11 +627,11 @@ End Function
 ' @return True if values are equal or False in other case.
 '----------------------------------------------------------------
 Function BTS__EqValues(Value1 as dynamic, Value2 as dynamic, comparator = invalid as Object) as Boolean
-	if comparator = invalid
-		return m.baseComparator(value1, value2)
-	else
-		return comparator(value1, value2)
-	end if
+  if comparator = invalid
+    return m.baseComparator(value1, value2)
+  else
+    return comparator(value1, value2)
+  end if
 End Function
 
 '----------------------------------------------------------------
@@ -1458,8 +1458,8 @@ function TestRunner() as Object
     ' Internal functions
     this.GetTestFilesList       = TestRunner__GetTestFilesList
     this.GetTestSuitesList      = TestRunner__GetTestSuitesList
-    this.GetTestNodesList		= TestRunner__GetTestNodesList
-    this.GetTestSuiteNamesList	= TestRunner__GetTestSuiteNamesList
+    this.GetTestNodesList       = TestRunner__GetTestNodesList
+    this.GetTestSuiteNamesList  = TestRunner__GetTestSuiteNamesList
 
     return this
 end function
@@ -1472,10 +1472,10 @@ end function
 '
 ' @return Statistic object if run in node mode, invalid otherwise
 '----------------------------------------------------------------
-function TestRunner__Run(statObj = m.logger.CreateTotalStatistic() as Object, testSuiteNamesList = [] as Object) as Object
+function TestRunner__Run(statObj = m.logger.CreateTotalStatistic() as Object, testSuiteNamesList = [] as Object, testSuitesAA = {} as Object) as Object
     alltestCount = 0
     totalStatObj = statObj
-    testSuitesList = m.GetTestSuitesList(testSuiteNamesList)
+    testSuitesList = m.GetTestSuitesList(testSuiteNamesList, testSuitesAA)
 
     for each testSuite in testSuitesList
         testCases = testSuite.testCases
@@ -1618,43 +1618,45 @@ end sub
 '
 ' @return An array of test suites.
 '----------------------------------------------------------------
-function TestRunner__GetTestSuitesList(testSuiteNamesList = [] as Object) as Object
+function TestRunner__GetTestSuitesList(testSuiteNamesList = [] as Object, testSuitesAA = {} as Object) as Object
     result = []
 
     if testSuiteNamesList.count() > 0
         for each functionName in testSuiteNamesList
-            eval("testSuite=" + functionName)
-            testSuite = testSuite()
-
-            if TF_Utils__IsAssociativeArray(testSuite)
-                result.Push(testSuite)
+            testSuite = testSuitesAA[functionName]
+            if testSuite <> invalid
+              testSuite = testSuite()
+  
+              if TF_Utils__IsAssociativeArray(testSuite)
+                  result.Push(testSuite)
+              end if
             end if
         end for
-	else
-	    testSuiteRegex = CreateObject("roRegex", "^(function|sub)\s(" + m.testSuitePrefix + m.testSuiteName + "[0-9a-z\_]*)\s*\(", "i")
-	    testFilesList = m.GetTestFilesList()
+  else
+      testSuiteRegex = CreateObject("roRegex", "^(function|sub)\s(" + m.testSuitePrefix + m.testSuiteName + "[0-9a-z\_]*)\s*\(", "i")
+      testFilesList = m.GetTestFilesList()
 
-	    for each filePath in testFilesList
-	        code = TF_Utils__AsString(ReadAsciiFile(filePath))
+      for each filePath in testFilesList
+          code = TF_Utils__AsString(ReadAsciiFile(filePath))
 
-	        if code <> ""
-	            for each line in code.Tokenize(chr(10))
-	                line.Trim()
+          if code <> ""
+              for each line in code.Tokenize(chr(10))
+                  line.Trim()
 
-	                if testSuiteRegex.IsMatch(line)
-	                    testSuite = invalid
-	                    functionName = testSuiteRegex.Match(line).Peek()
+                  if testSuiteRegex.IsMatch(line)
+                      testSuite = invalid
+                      functionName = testSuiteRegex.Match(line).Peek()
 
                         eval("testSuite=" + functionName)
                         testSuite = testSuite()
 
-	                    if TF_Utils__IsAssociativeArray(testSuite)
-	                        result.Push(testSuite)
-	                    end if
-	                end if
-	            end for
-	        end if
-	    end for
+                      if TF_Utils__IsAssociativeArray(testSuite)
+                          result.Push(testSuite)
+                      end if
+                  end if
+              end for
+          end if
+      end for
     end if
 
     return result
@@ -1767,8 +1769,10 @@ function TestFramework__RunNodeTests(params as Object) as Object
     testSuiteNamesList = params[1]
 
     Runner = TestRunner()
-    return Runner.RUN(statObj, testSuiteNamesList)
+    return Runner.RUN(statObj, testSuiteNamesList, getTestSuitesAA())
 end function
+
+
 '*****************************************************************
 '* Copyright Roku 2011-2018
 '* All Rights Reserved
