@@ -63,6 +63,7 @@ powershell.exe -nologo -noprofile -command "Compress-Archive -Path .\%BUILD_3_NA
 ) else if %selection% == 5 (
 goto :telnet
 )
+goto :EOF
 
 
 :telnet

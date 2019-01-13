@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <component name="SegmentLibrary" extends="Node">
   <interface>
-    <field id="message" type="assocarray" alwaysNotify="true" onChange="onMessageChange" />
+    <field id="track" type="assocarray" alwaysNotify="true" onChange="onMessageChange" />
   </interface>
   <script type="text/brightscript" uri="SegmentLibrary.brs" />
 </component>

@@ -19,7 +19,7 @@
     	  m.segmentLib = CreateObject("roSGNode", "SegmentComponentLib:SegmentLibrary")
         m.lbl.text = "Segment Component Library had been successfully loaded"
         ?m.lbl.text
-        m.global.Segment_analytics.message = {"event": "Segment Component Library had been successfully loaded"}
+        m.global.Segment_analytics.track = {"event": "Segment Component Library had been successfully loaded"}
         m.messageButtons.visible = true
         m.messageButtons.setFocus(true)
         m.messageButtons.observeField("itemSelected", "onItemSelected")
@@ -29,9 +29,9 @@
   sub onItemSelected(event)
     itemSelected = event.getData()
     item = m.messageButtons.content.getChild(itemSelected)
-    m.global.Segment_analytics.message = {"event": item.id}
+    m.global.Segment_analytics.track = {"event": item.id}
     m.lbl.text = "Message " + chr(34) + item.id + chr(34) + " was sent"
-    ?m.global.Segment_analytics.message
+    ?m.global.Segment_analytics.track
   end sub
 ]]>
 </script>
