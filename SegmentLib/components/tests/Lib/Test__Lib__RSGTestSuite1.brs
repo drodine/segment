@@ -1,10 +1,10 @@
 Function TestSuite__Lib__RSGTestSuite1() as Object
     ' Inherite your test suite from BaseTestSuite
     this = BaseTestSuite()
-    
+
     ' Test suite name for log statistics
     this.Name = "TestSuite__Lib__RSGTestSuite1"
-    
+
     ' Add tests to suite's tests collection
     this.addTest("TestCase__Init", TestCase__Init)
     this.addTest("TestCase__Send_Message", TestCase__Send_Message)
@@ -20,7 +20,7 @@ End Function
 
 function TestCase__Init() as Object
   globalAA = getGlobalAA()
-  
+
   return m.assertTrue(globalAA.global.Segment_analytics <> invalid)
 end function
 
@@ -29,7 +29,7 @@ function TestCase__GetMessageBody() as Object
   globalAA = getGlobalAA()
   event = "Unit Test: getMessageBody"
   message = getMessageBody({"event": event})
-  
+
   return m.assertAAHasKey(message, "userId") + m.assertTrue(message.event = event)
 end function
 
@@ -60,7 +60,7 @@ function TestCase__Send_Message() as Object
   port = CreateObject("roMessagePort")
   m.segmentLibraryTask.observeField("response", port)
   m.segmentLibraryTask.control = "RUN"
-  event = wait(300000, port)
- 
+  event = wait(90000, port)
+
   return m.AssertNotEqual(m.initialResponseData, m.segmentLibraryTask.response)
 end function

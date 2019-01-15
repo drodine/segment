@@ -74,7 +74,13 @@ m.global.Segment_analytics.track = {"event": "Segment Component Library had been
 
 ## Library Tests Execution
 To run tests:
-* Execute `run_unit_test_framework.bat` for Windows or `run_unit_test_framework.sh` for Linux/MacOS
+
+#### MacOS/UNIX/Linux
+* Run `make test ROKU_DEV_TARGET={Roku_box_IP_address} ROKU_DEV_PASSWORD={Roku_box_dev_password}`
+* Observe test results in terminal window and in `TestResults/SegmentLib.log` file
+
+#### Windows
+* Execute `run_unit_test_framework.bat` for Windows
 * Enter Roku box IP address on prompt. Example:
 ```
 Enter Roku box IP address: 192.168.0.100
